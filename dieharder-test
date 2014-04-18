@@ -1,1 +1,11 @@
-dieharder -a -f rand.dat
+#!/bin/bash
+
+if [ "$1" == "" ]; then
+  RANDFILE="rand.dat"
+else
+  RANDFILE="$1"
+fi
+
+REPORT="$RANDFILE.report"
+
+dieharder -a -f "$RANDFILE" | tee "$REPORT"
