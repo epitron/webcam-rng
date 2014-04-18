@@ -1,38 +1,10 @@
 #!/usr/bin/env python2
 
 #
-# Webcam-based entropy source
+# webcam-rng
 #
-# Usage:
-#   1) Run:
-#        webcam-rng.py <video capture device number (default: 0)> [<output file for random bytes>]
-#        (Note: Python opencv2 bindings must be installed)
-#
-#   2) Point your webcam at a stationary object, like a wall
-#
-#   3) Bask in all the glorious entropy!
-#
-# 
-# TODOs:
-# ----------------
-#
-# Statistical tests for entropy
-#   => dieharder: http://www.phy.duke.edu/~rgb/General/dieharder.php
-#   => ent:       https://www.fourmilab.ch/random/
-#   => diehard:   https://en.wikipedia.org/wiki/Diehard_tests
-#   => https://en.wikipedia.org/wiki/Randomness_test
-#
-# Entropy pool
-#   We should be able to get much more than 64-bytes of entropy out
-#   of each webcam frame (depending on how crappy the webcam is).
-#
-#   Doing a very crude test, 256 frames of webcam noise (235 MB of data)
-#   compressed down to 55 MB using LZMA. There could potentially be
-#   about 200k of entropy in each frame.
-#   
-#   => How to Eat Your Entropy and Have it Too (Fortuna): http://eprint.iacr.org/2014/167
-#   => Hash chain: https://en.wikipedia.org/wiki/Hash_chain
-#   => On entropy and randomness: http://lwn.net/Articles/261804/
+# A random number generator that uses your webcam's CCD noise as an entropy source.
+# (c) 2014 by Chris Gahan (chris@ill-logic.com)
 #
 
 import numpy as np
@@ -127,10 +99,13 @@ if __name__ == '__main__':
 
   args = sys.argv
 
+  if len(args) == 1:
+    print "usage:"
+    print "  ./webcam-rng.py <video device number> [<output file (default: 'rand.dat')>]"
+    sys.exit(1)
+
   if len(args) > 1:
     devicenum = int(args[1])
-  else:
-    devicenum = 0
 
   if len(args) > 2:
     randfile = args[2]
