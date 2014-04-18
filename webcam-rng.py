@@ -96,7 +96,7 @@ def webcam_rng(devicenum=0, rand_filename="rand.dat"):
       cv2.imshow('Video entropy collector (q to quit)', amp_noise)
 
       # write_noise_to_file(noise, framecount)
-      write_noise_to_image(amp_noise, framecount)
+      # write_noise_to_image(amp_noise, framecount)
 
       # hash the noise to generate random bytes
       hash.update(noise.tostring())
