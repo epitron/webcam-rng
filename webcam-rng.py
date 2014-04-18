@@ -12,6 +12,14 @@
 #
 #   3) Bask in all the glorious entropy!
 #
+# 
+# TODOs:
+# - Statistical tests for entropy
+#   => dieharder: http://www.phy.duke.edu/~rgb/General/dieharder.php
+#   => ent:       https://www.fourmilab.ch/random/
+#   => diehard:   https://en.wikipedia.org/wiki/Diehard_tests
+#   => https://en.wikipedia.org/wiki/Randomness_test
+#
 
 import numpy as np
 import cv2
@@ -37,28 +45,17 @@ def extract_noise(a, b):
   return cv2.absdiff(a, b)
 
 
-old_rands = set()
-
-def noise_to_rand(noise):
-  """ Output a stream of random bytes """
-
-  global old_rands
+def hash_noise(noise):
+  """ Cheap stream of random bytes """
 
   # TODO: This should be done in an information-theoretic way.
   #       (eg: determine noise distribution, use chaotic mixing, etc.)
-  rand = hashlib.sha256(noise.tostring()).hexdigest()
-
-  if rand in old_rands:
-    print "Duplicate random numbers!!!"
-  else:
-    old_rands.add(rand)
-
-  return rand
+  return hashlib.sha256(noise.tostring()).hexdigest()
 
 
 def webcam_noise(devicenum=0):
-  cap = cv2.VideoCapture(devicenum)
-
+  cap       = cv2.VideoCapture(devicenum)
+  old_rands = set()
   lastframe = None
 
   while(True):
@@ -70,7 +67,14 @@ def webcam_noise(devicenum=0):
 
       cv2.imshow('Video entropy collector (q to quit)', amplify_noise(noise))
 
-      print noise_to_rand(noise) # random bytes
+      rand = hash_noise(noise) # random bytes
+      print rand
+
+      if rand in old_rands:
+        print "Duplicate random number!!!"
+      else:
+        old_rands.add(rand)
+
 
       if cv2.waitKey(1) & 0xFF == ord('q'):
         break
