@@ -33,7 +33,7 @@ import cv2
 import hashlib
 
 
-def extract_noise(a, b):
+def extract_noise(frame1, frame2):
   """
   CCD noise detector
 
@@ -41,7 +41,7 @@ def extract_noise(a, b):
     * ignore large differences (low-pass filter) to ensure
       that noise is being captured
   """
-  return cv2.absdiff(a, b)
+  return cv2.absdiff(frame1, frame2)
 
 
 def amplify_noise(noise):
@@ -54,11 +54,17 @@ def amplify_noise(noise):
 
 
 def write_noise_to_file(noise, count):
-  noisefilename = "noise-%0.4d.dat" % count
+  filename = "noise-%0.4d.dat" % count
 
-  noisefile = open(noisefilename, "wb")
-  noisefile.write(noise)
-  noisefile.close()
+  file = open(filename, "wb")
+  file.write(noise)
+  file.close()
+
+
+def write_noise_to_image(noise, count):
+  filename = "noise-%0.4d.png" % count
+
+  noisefile = cv2.imwrite(filename, noise)
 
 
 def webcam_rng(devicenum=0, rand_filename="rand.dat"):
@@ -77,11 +83,13 @@ def webcam_rng(devicenum=0, rand_filename="rand.dat"):
     if lastframe is not None:
       framecount += 1
 
-      noise = extract_noise(lastframe, currentframe)
+      noise     = extract_noise(lastframe, currentframe)
+      amp_noise = amplify_noise(noise)
 
-      cv2.imshow('Video entropy collector (q to quit)', amplify_noise(noise))
+      cv2.imshow('Video entropy collector (q to quit)', amp_noise)
 
       # write_noise_to_file(noise, framecount)
+      write_noise_to_image(amp_noise, framecount)
 
       # hash the noise to generate random bytes
       hash.update(noise.tostring())
