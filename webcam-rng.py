@@ -23,6 +23,13 @@
 #   => https://en.wikipedia.org/wiki/Randomness_test
 #
 # Entropy pool
+#   We should be able to get much more than 64-bytes of entropy out
+#   of each webcam frame (depending on how crappy the webcam is).
+#
+#   Doing a very crude test, 256 frames of webcam noise (235 MB of data)
+#   compressed down to 55 MB using LZMA. There could potentially be
+#   about 200k of entropy in each frame.
+#   
 #   => How to Eat Your Entropy and Have it Too (Fortuna): http://eprint.iacr.org/2014/167
 #   => Hash chain: https://en.wikipedia.org/wiki/Hash_chain
 #   => On entropy and randomness: http://lwn.net/Articles/261804/
