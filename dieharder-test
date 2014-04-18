@@ -1,0 +1,1 @@
+dieharder -a -f rand.dat
