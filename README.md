@@ -8,7 +8,8 @@ A random number generator that uses your webcam's CCD noise as an entropy source
 
 ## Requirements
 
-This script requires Python 2.7 and the OpenCV 2.x bindings for Python.
+* Python 2.7
+* OpenCV 2.x Python bindings
 
 
 ## Installation
@@ -64,8 +65,9 @@ We should be able to get much more than 64-bytes of entropy out
 of each webcam frame (depending on how crappy the webcam is).
 
 Doing a very crude test, 256 frames of webcam noise (235 MB of data)
-compressed down to 55 MB using LZMA. There could potentially be
-about 200k of entropy in each frame.
+compresses down to 55 MB using LZMA. This means that there is potentially
+about 200k of entropy in each frame (a firehose of entropy, compared to the
+64 bytes it's currently getting.)
 
 __Related Research:__
 
