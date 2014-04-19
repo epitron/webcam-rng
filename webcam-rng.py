@@ -77,7 +77,7 @@ def webcam_rng(devicenum=0, rand_filename="rand.dat"):
       collected += len(randbytes)
       randfile.write(randbytes)
 
-      print "%0.40s... (%d bytes) -- %d collected" % (randbytes.encode("hex"), len(randbytes), collected)
+      print "%0.35s... (%d bytes) -- %d bytes generated" % (randbytes.encode("hex"), len(randbytes), collected)
 
       if randbytes in old_rands:
         print "!!!Duplicate random number!!!"
