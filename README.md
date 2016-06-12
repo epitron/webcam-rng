@@ -71,6 +71,7 @@ about 200k of entropy in each frame (a firehose of entropy, compared to the
 
 __Related Research:__
 
+* [Webcam Random Number Generator](https://pthree.org/2016/06/12/webcam-random-number-generation/) (using pyblake2 to hash the images)
 * [Hardware RNG (Wikipedia)](https://en.wikipedia.org/wiki/Hardware_random_number_generator#Using_observed_events)
 * [video_entropyd](http://www.vanheusden.com/ved/)
   
