@@ -24,6 +24,16 @@ Next, install the python opencv2 bindings (if you haven't yet)...
 
   ```$ apt-get install python-opencv```
 
+#### Fedora:
+
+   ```$ dnf install python2-opencv```
+
+#### RHEL7/CentOS7/Scientific Linux 7:
+
+Note: ensure to have `optional` repo enabled:
+
+    ```$ yum install opencv-python```
+
 #### Arch:
   
   ```$ pacman -S opencv```
