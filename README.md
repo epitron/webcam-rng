@@ -32,7 +32,7 @@ Next, install the python opencv2 bindings (if you haven't yet)...
 
 Note: ensure to have `optional` repo enabled:
 
-    ```$ yum install opencv-python```
+   ```$ yum install opencv-python```
 
 #### Arch:
   
